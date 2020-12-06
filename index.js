@@ -14,6 +14,7 @@ const fetchData = async (name = '') => {
 }
 
 const writeToFile = () => {
+    console.log(currentStr)
     fs.appendFileSync('scrapped.txt', currentStr, (err) => {
         if (err)
             console.log(err);
@@ -21,12 +22,10 @@ const writeToFile = () => {
 }
 
 const saveCateogoryData = async (name) => {
-    if (!name)
-        return
     const categoryData = await fetchData(`${name}/`);
     if (categoryData.data.files) {
         categoryData.data.files.map(item => {
-            currentStr = `${name}/${item.name}$`
+            currentStr = `${name}/${item.name}$`;
             writeToFile();
         });
     }
