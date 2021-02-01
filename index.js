@@ -4,6 +4,7 @@ const fs = require('fs');
 
 const BASE_URL = process.env.BASE_URL;
 let currentStr = '';
+let count = 0;
 
 const fetchData = async (name = '') => {
     try {
@@ -14,7 +15,8 @@ const fetchData = async (name = '') => {
 }
 
 const writeToFile = () => {
-    console.log(currentStr)
+    console.log(currentStr);
+    console.log('total files scanned', count++)
     fs.appendFileSync('scrapped.txt', currentStr, (err) => {
         if (err)
             console.log(err);
@@ -40,7 +42,7 @@ const startScrapping = async () => {
             if (item.name !== 'snapchats' || item.name !== 'Celebrity')
                 saveCateogoryData(item.name);
         })
-    }
+    };
 }
 
 Promise.all([
@@ -49,3 +51,4 @@ Promise.all([
     .then(value = () => {
         // writeToFile()
     });
+
